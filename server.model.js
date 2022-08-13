@@ -8,20 +8,21 @@ class LoggerModel {
 
     async insertLog(data) {
         let i = this.collection({
-            "user": data.user,
-            "status_code":data.status_code,
-            "method": data.method,
-            "page": data.page,
-            "get_data": json2Str(data.get_data),
-            "post_data": json2Str(data.post_data),
-            "header_data":json2Str(data.header_data),
-            "user_agent": data.user_agent,
-            "ip": data.ip,
-            "referer": data.referer,
+            "user": safeString(data.user),
+            "status_code": safeString(data.status_code),
+            "method": safeString(data.method),
+            "page": safeString(data.page),
+            "get_data": safeString(json2Str(data.get_data)),
+            "post_data": safeString(json2Str(data.post_data)),
+            "cookie_data": safeString(json2Str(data.cookie_data)),
+            "header_data": safeString(json2Str(data.header_data)),
+            "user_agent": safeString(data.user_agent),
+            "ip": safeString(data.ip),
+            "referer": safeString(data.referer),
             "date_time": data.date + " " + data.time,
-            "server_ip": data.server_ip,
-            "server_name":data.server_name,
-            "type":data.type,
+            "server_ip": safeString(data.server_ip),
+            "server_name": safeString(data.server_name),
+            "type": safeString(data.type),
         });
         let r = await i.save();
         return 1;
